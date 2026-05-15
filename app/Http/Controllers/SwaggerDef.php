@@ -17,5 +17,4 @@ use OpenApi\Attributes as OA;
 )]
 class SwaggerDef
 {
-    // Class ini sengaja dikosongkan, hanya bertugas sebagai pembawa KTP Swagger.
 }
