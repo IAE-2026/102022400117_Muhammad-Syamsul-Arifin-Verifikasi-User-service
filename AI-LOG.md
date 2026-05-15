@@ -112,7 +112,7 @@ Saya mengecek endpoint GraphQL di Altair Client, tapi menemukan celah di mana da
 
 
 
-Setelah server berhasil berjalan, saat mengakses `http://127.0.0.1:8000/` di browser malah menampilkan "404 NOT FOUND". Tolong jelaskan alasannya bahwa ini terjadi karena proyek difokuskan pada backend (tidak ada rute /), dan berikan petunjuk rute mana saja yang sebenarnya valid (misal /api/documentation).
+Setelah server berhasil berjalan, saat mengakses http://127.0.0.1:8000/ di browser malah menampilkan "404 NOT FOUND". Tolong jelaskan alasannya bahwa ini terjadi karena proyek difokuskan pada backend (tidak ada rute /), dan berikan petunjuk rute mana saja yang sebenarnya valid (misal /api/documentation).
 
 
 
