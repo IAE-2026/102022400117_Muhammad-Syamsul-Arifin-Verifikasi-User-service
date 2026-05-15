@@ -78,7 +78,7 @@ Saya ingin menambahkan dokumentasi API interaktif menggunakan library darkaonlin
 
 
 
-Error parser Swagger-nya masih bermasalah karena konfigurasi dan path folder saya (coba2 IAE). Tolong berikan solusi perbaikan nama folder, serta buatkan file dummy khusus (SwaggerDef.php) atau gunakan PHP 8 Attributes agar anotasi info Swagger bisa terbaca dengan sempurna tanpa mengganggu kode controller utama.
+Error parser Swagger-nya masih bermasalah karena konfigurasi dan path folder saya. Tolong berikan solusi perbaikan nama folder, serta buatkan file dummy khusus (SwaggerDef.php) atau gunakan PHP 8 Attributes agar anotasi info Swagger bisa terbaca dengan sempurna tanpa mengganggu kode controller utama.
 
 
 
@@ -86,7 +86,7 @@ Error parser Swagger-nya masih bermasalah karena konfigurasi dan path folder say
 
 
 
-Saya kembali mengalami error lanjutan berupa "Required @OA\PathItem() not found" saat menjalankan `php artisan l5-swagger:generate`. Tolong jelaskan kenapa routing di `VerificationController.php` tidak terbaca, dan bantu saya mengonversi seluruh anotasi DocBlock di controller tersebut menjadi PHP 8 Attributes agar API Docs berhasil digenerate sepenuhnya.
+Saya kembali mengalami error lanjutan berupa "Required @OA\PathItem() not found" saat menjalankan php artisan l5-swagger:generate. Tolong jelaskan kenapa routing di VerificationController.php tidak terbaca, dan bantu saya mengonversi seluruh anotasi DocBlock di controller tersebut menjadi PHP 8 Attributes agar API Docs berhasil digenerate sepenuhnya.
 
 
 
@@ -112,7 +112,7 @@ Saya mengecek endpoint GraphQL di Altair Client, tapi menemukan celah di mana da
 
 
 
-Setelah server berhasil berjalan, saat mengakses `http://127.0.0.1:8000/` di browser malah menampilkan "404 NOT FOUND". Tolong jelaskan alasannya bahwa ini terjadi karena proyek difokuskan pada backend (tidak ada rute `/`), dan berikan petunjuk rute mana saja yang sebenarnya valid (misal `/api/documentation`).
+Setelah server berhasil berjalan, saat mengakses `http://127.0.0.1:8000/` di browser malah menampilkan "404 NOT FOUND". Tolong jelaskan alasannya bahwa ini terjadi karena proyek difokuskan pada backend (tidak ada rute /), dan berikan petunjuk rute mana saja yang sebenarnya valid (misal /api/documentation).
 
 
 
@@ -120,7 +120,7 @@ Setelah server berhasil berjalan, saat mengakses `http://127.0.0.1:8000/` di bro
 
 
 
-Saat mencoba memproteksi GraphQL, saya sempat mendapatkan pesan error "No directive found for 'middleware'". Tolong pandu saya untuk memperbaiki error versi Lighthouse ini dengan mem-publish file konfigurasi Lighthouse dan memasukkan middleware `iae.key` ke dalam array konfigurasi `config/lighthouse.php` secara global.
+Saat mencoba memproteksi GraphQL, saya sempat mendapatkan pesan error "No directive found for 'middleware'". Tolong pandu saya untuk memperbaiki error versi Lighthouse ini dengan mem-publish file konfigurasi Lighthouse dan memasukkan middleware iae.key ke dalam array konfigurasi config/lighthouse.php secara global.
 
 
 
@@ -136,11 +136,11 @@ Berikan rangkuman cara melakukan finalisasi dan pengujian sistem secara menyelur
 
 
 
-Sesuai dengan ketentuan pada bagian "GraphQL Implementation", tolong bantu saya menginstalasi `mll-lab/laravel-graphql-playground` agar API saya menyediakan akses langsung ke GraphQL Playground (`/graphql-playground`) untuk pengujian.
+Sesuai dengan ketentuan pada bagian "GraphQL Implementation", tolong bantu saya menginstalasi mll-lab/laravel-graphql-playground agar API saya menyediakan akses langsung ke GraphQL Playground (/graphql-playground) untuk pengujian.
 
 
 
 [15/5/2026 - 09:50]
 
 
-buatkan saya file `Dockerfile` dan `docker-compose.yml` sederhana. Proyek ini menggunakan database SQLite, jadi pastikan konfigurasi Dockerfile-nya meng-install ekstensi `pdo_sqlite` dan Apache agar API saya bisa langsung di-build dan di-test di dalam container.
+buatkan saya file Dockerfile dan docker-compose.yml sederhana. Proyek ini menggunakan database SQLite, jadi pastikan konfigurasi Dockerfile-nya meng-install ekstensi pdo_sqlite dan Apache agar API saya bisa langsung di-build dan di-test di dalam container.
