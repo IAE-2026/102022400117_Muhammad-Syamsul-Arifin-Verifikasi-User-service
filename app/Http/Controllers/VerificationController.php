@@ -47,10 +47,87 @@ class VerificationController extends Controller
             'user_id' => $request->user_id,
             'nik' => $request->nik,
             'bank_account_number' => $request->bank_account_number,
-            'verification_status' => 'VERIFIED'
+            'verification_status' => 'NOT_VERIFIED'
         ]);
 
-        return $this->successResponse($verification, 'Data verifikasi berhasil dikirim', 201);
+        return $this->successResponse($verification, 'Data verifikasi berhasil diajukan', 201);
+    }
+
+    #[OA\Put(
+        path: '/api/v1/verifications/{id}',
+        summary: 'Memperbarui status verifikasi',
+        tags: ['Verifications'],
+        security: [['ApiKeyAuth' => []]]
+    )]
+    #[OA\Parameter(
+        name: 'id',
+        in: 'path',
+        required: true,
+        description: 'ID Verification',
+        schema: new OA\Schema(type: 'integer')
+    )]
+    #[OA\RequestBody(
+        required: true,
+        content: new OA\JsonContent(
+            required: ['verification_status'],
+            properties: [
+                new OA\Property(property: 'verification_status', type: 'string', enum: ['VERIFIED', 'NOT_VERIFIED'], example: 'VERIFIED')
+            ]
+        )
+    )]
+    #[OA\Response(response: 200, description: 'Status verifikasi berhasil diperbarui')]
+    #[OA\Response(response: 400, description: 'Validasi Gagal')]
+    #[OA\Response(response: 404, description: 'Data verifikasi tidak ditemukan')]
+    public function update(Request $request, $id)
+    {
+        $verification = Verification::find($id);
+
+        if (!$verification) {
+            return $this->errorResponse('Data verifikasi tidak ditemukan', 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'verification_status' => 'required|string|in:VERIFIED,NOT_VERIFIED'
+        ]);
+
+        if ($validator->fails()) {
+            return $this->errorResponse('Validasi Gagal', 400, $validator->errors());
+        }
+
+        $status = $request->verification_status;
+        
+        $verification->update([
+            'verification_status' => $status
+        ]);
+
+        if ($status === 'VERIFIED') {
+            // Mengambil Token M2M menggunakan API Key
+            $m2mAuthService = new \App\Services\M2MAuthService();
+            $token = $m2mAuthService->getToken();
+
+            // Send Audit Log to SOAP System
+            $auditSoapService = new \App\Services\AuditSoapService();
+            $receiptNumber = $auditSoapService->sendAuditLog($token, 'UserVerificationApproved', [
+                'verification_id' => $verification->id,
+                'user_id' => $verification->user_id,
+                'status' => 'VERIFIED'
+            ]);
+
+            if ($receiptNumber) {
+                $verification->update(['receipt_number' => $receiptNumber]);
+            }
+
+            // Send Event Notification to RabbitMQ via API Dosen
+            $messagePublisher = new \App\Services\MessagePublisherService();
+            $messagePublisher->publishMessage($token, 'UserVerificationApproved', [
+                'verification_id' => $verification->id,
+                'user_id' => $verification->user_id,
+                'nik' => $verification->nik,
+                'status' => 'VERIFIED'
+            ]);
+        }
+
+        return $this->successResponse($verification, 'Status verifikasi berhasil diperbarui', 200);
     }
 
     #[OA\Get(

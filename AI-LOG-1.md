@@ -16,7 +16,7 @@ Mari kita diskusikan penentuan alur proses bisnis (probis) untuk Service Verifik
 
 Berikut detail Proses Bisnis (Bidder Journey) yang kita tetapkan:
 
-1. Fase Verifikasi Kelayakan Bidding (Domain: Service D - Verifikasi User): Calon bidder mendaftarkan diri dan mengirimkan data agar berstatus Approved. Endpoint: POST /api/v1/verifications.
+1. Fase Verifikasi Kelayakan Bidding (Domain: Service D - Verifikasi User): Calon bidder mendaftarkan diri dan mengirimkan data agar berstatus VERIFIED. Endpoint: POST /api/v1/verifications.
 
 2. Fase Eksplorasi Barang (Domain: Service A - Katalog Barang): Bidder mencari barang yang menarik dan memastikan status lelang Open. Endpoint: GET /api/v1/items.
 
@@ -143,4 +143,8 @@ Sesuai dengan ketentuan pada bagian "GraphQL Implementation", tolong bantu saya 
 [15/5/2026 - 09:50]
 
 
+
 buatkan saya file Dockerfile dan docker-compose.yml sederhana. Proyek ini menggunakan database SQLite, jadi pastikan konfigurasi Dockerfile-nya meng-install ekstensi pdo_sqlite dan Apache agar API saya bisa langsung di-build dan di-test di dalam container.
+
+
+

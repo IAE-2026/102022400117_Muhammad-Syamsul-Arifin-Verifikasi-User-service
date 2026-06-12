@@ -8,8 +8,8 @@ use App\Http\Controllers\VerificationController;
     
   
     Route::post('/verifications', [VerificationController::class, 'store']);
-    
-   
+    Route::put('/verifications/{id}', [VerificationController::class, 'update']);
+
     Route::get('/verifications', [VerificationController::class, 'index']);
     
 

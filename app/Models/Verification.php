@@ -14,5 +14,6 @@ class Verification extends Model
         'nik',
         'bank_account_number',
         'verification_status',
+        'receipt_number',
     ];
 }
