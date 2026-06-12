@@ -34,7 +34,8 @@ class VerifyIaeKey
         try {
             // 2. Fetch JWKS and Cache it
             $jwks = Cache::remember('sso_jwks', 3600, function () {
-                $response = Http::timeout(5)->get('https://iae-sso.virtualfri.id/.well-known/jwks.json');
+                $jwksUrl = env('SSO_JWKS_URL', 'https://iae-sso.virtualfri.id/api/v1/auth/jwks');
+                $response = Http::timeout(5)->get($jwksUrl);
                 if ($response->successful()) {
                     return $response->json();
                 }
