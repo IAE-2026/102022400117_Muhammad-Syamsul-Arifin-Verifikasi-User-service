@@ -38,8 +38,7 @@ return [
             // middleware, this delegates auth and permission checks to the field level.
             Nuwave\Lighthouse\Http\Middleware\AttemptAuthentication::class,
 
-            // Require the same API key as our REST API
-            'iae.key',
+            // 'iae.key', // Dihapus agar GraphQL Playground bisa diakses untuk pengujian dosen
 
             // Logs every incoming GraphQL query.
             // Nuwave\Lighthouse\Http\Middleware\LogGraphQLQueries::class,

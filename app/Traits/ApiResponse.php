@@ -29,11 +29,8 @@ trait ApiResponse
         $response = [
             'status' => 'error',
             'message' => $message,
+            'errors' => $errors, // Selalu ada, null jika tidak ada detail
         ];
-
-        if ($errors) {
-            $response['errors'] = $errors;
-        }
 
         return response()->json($response, $code);
     }

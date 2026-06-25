@@ -1,4 +1,4 @@
-{
+    {
     "openapi": "3.0.0",
     "info": {
         "title": "Service Verifikasi User API",
@@ -95,6 +95,63 @@
                 "responses": {
                     "200": {
                         "description": "Berhasil mengambil detail verifikasi"
+                    },
+                    "404": {
+                        "description": "Data verifikasi tidak ditemukan"
+                    }
+                },
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Verifications"
+                ],
+                "summary": "Memperbarui status verifikasi",
+                "operationId": "f774ac78283cdce7969344beb888952d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID Verification",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "verification_status"
+                                ],
+                                "properties": {
+                                    "verification_status": {
+                                        "type": "string",
+                                        "example": "VERIFIED",
+                                        "enum": [
+                                            "VERIFIED",
+                                            "NOT_VERIFIED"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Status verifikasi berhasil diperbarui"
+                    },
+                    "400": {
+                        "description": "Validasi Gagal"
                     },
                     "404": {
                         "description": "Data verifikasi tidak ditemukan"

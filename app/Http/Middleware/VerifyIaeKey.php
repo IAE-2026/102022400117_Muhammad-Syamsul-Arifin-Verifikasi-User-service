@@ -18,21 +18,25 @@ class VerifyIaeKey
 
     public function handle(Request $request, Closure $next): Response
     {
-        // 1. Get Authorization Header
-        $header = $request->header('Authorization');
-        if (!$header || !preg_match('/Bearer\s(\S+)/', $header, $matches)) {
-            // Coba cek header lama jika dosen masih testing X-IAE-KEY
-            $headerkey = $request->header('X-IAE-KEY');
-            if ($headerkey === '102022400117') {
+        // 1. Prioritas utama: Cek header X-IAE-KEY (Tugas 2)
+        $headerKey = $request->header('X-IAE-KEY');
+        if ($headerKey) {
+            if ($headerKey === '102022400117') {
                 return $next($request);
             }
-            return $this->errorResponse('Unauthorized. Missing or invalid Bearer token.', 401);
+            return $this->errorResponse('Unauthorized. Invalid X-IAE-KEY.', 401);
+        }
+
+        // 2. Fallback: Cek Authorization Bearer token (Tugas 3 - JWT/SSO)
+        $header = $request->header('Authorization');
+        if (!$header || !preg_match('/Bearer\s(\S+)/', $header, $matches)) {
+            return $this->errorResponse('Unauthorized. Missing or invalid X-IAE-KEY or Bearer token.', 401);
         }
 
         $token = $matches[1];
 
         try {
-            // 2. Fetch JWKS and Cache it
+            // Fetch JWKS and Cache it
             $jwks = Cache::remember('sso_jwks', 3600, function () {
                 $jwksUrl = env('SSO_JWKS_URL', 'https://iae-sso.virtualfri.id/api/v1/auth/jwks');
                 $response = Http::timeout(5)->get($jwksUrl);
@@ -42,11 +46,11 @@ class VerifyIaeKey
                 throw new \Exception('Failed to fetch JWKS from SSO server.');
             });
 
-            // 3. Decode JWT Token
+            // Decode JWT Token
             $keys = JWK::parseKeySet($jwks);
             $decoded = JWT::decode($token, $keys);
 
-            // 4. Map user to roles table
+            // Map user to roles table
             $email = $decoded->email ?? ($decoded->sub ?? 'unknown');
             $role_name = $decoded->role ?? 'user';
             
