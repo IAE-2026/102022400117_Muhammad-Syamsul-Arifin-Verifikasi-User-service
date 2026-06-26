@@ -6,8 +6,6 @@ services:
     image: laravel-app
     ports:
       - "8000:80"
-    volumes:
-      - .:/var/www/html
     environment:
       - APP_ENV=local
       - APP_DEBUG=true

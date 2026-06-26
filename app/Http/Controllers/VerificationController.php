@@ -34,8 +34,8 @@ class VerificationController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|integer|unique:verifications,user_id',
-            'nik' => 'required|string|size:16|unique:verifications,nik',
+            'user_id' => 'required|integer',
+            'nik' => 'required|string',
             'bank_account_number' => 'required|string'
         ]);
 
